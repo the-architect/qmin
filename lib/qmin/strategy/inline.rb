@@ -7,8 +7,8 @@ module Qmin
       end
 
       # call method directly
-      def background_call(instance, method_name)
-        instance.send(::Qmin.method_name_for_instance(instance, method_name))
+      def background_call(instance, method_name, *args)
+        instance.send(::Qmin.method_name_for_instance(instance, method_name), *args)
       end
     end
   end

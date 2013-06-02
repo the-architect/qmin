@@ -2,8 +2,8 @@ require File.expand_path '../../spec_helper', File.dirname(__FILE__)
 
 describe String do
   it '.snake_case' do
-    'MyClassName'.snake_case.should eql 'my_class_name'
-    'Module::MyClassName'.snake_case.should eql 'module/my_class_name'
+    'MyClassName'.underscore.should eql 'my_class_name'
+    'Module::MyClassName'.underscore.should eql 'module/my_class_name'
   end
 
   it '.constantize' do

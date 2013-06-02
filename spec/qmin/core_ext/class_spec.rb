@@ -2,69 +2,72 @@ require File.expand_path '../../spec_helper', File.dirname(__FILE__)
 
 describe Class do
   it 'responds to background_method' do
-    Class.new.should respond_to(:background_method)
+    Class.new.should respond_to(:background)
   end
 
-  it 'annotates methods' do
-    klass = Class.new do
-      def foo; end
-      background_method :foo
+  describe 'instance methods' do
+    it 'annotates methods' do
+      klass = Class.new do
+        def foo; end
+        background :foo
+      end
+      subject = klass.new
 
-      def bar; end
-      background_method :bar
+      subject.should respond_to(:foo)
+      subject.should respond_to(:foo_without_qmin)
     end
 
-    subject = klass.new
+    it 'annotates many methods' do
+      klass = Class.new do
+        def foo; end
+        def bar; end
+        background :foo, :bar
+      end
+      subject = klass.new
 
-    subject.should.respond_to? :foo
-    subject.should.respond_to? :foo_without_qmin
-
-    subject.should.respond_to? :bar
-    subject.should.respond_to? :bar_without_qmin
-  end
-
-
-  it 'annotates many methods' do
-    klass = Class.new do
-      def foo; end
-      def bar; end
-
-      background_methods :foo, :bar
+      subject.should respond_to(:foo)
+      subject.should respond_to(:foo_without_qmin)
+      subject.should respond_to(:bar)
+      subject.should respond_to(:bar_without_qmin)
     end
 
-    subject = klass.new
+    it 'does not annotate original method' do
+      klass = Class.new do
+        def foo; end
+        background :foo
+        background :foo_without_qmin
+      end
+      subject = klass.new
 
-    subject.should.respond_to? :foo
-    subject.should.respond_to? :foo_without_qmin
-
-    subject.should.respond_to? :bar
-    subject.should.respond_to? :bar_without_qmin
+      subject.should respond_to(:foo)
+      subject.should respond_to(:foo_without_qmin)
+      subject.should_not respond_to(:foo_without_qmin_without_qmin)
+    end
   end
 
-  it 'does not annotate method twice' do
-    klass = Class.new do
-      def foo; end
-      background_method :foo
-      background_method :foo
+  describe 'class methods' do
+    it 'decorates eigenclass' do
+      klass = Class.new do
+        class << self
+          def foo; end
+          background :foo
+        end
+      end
+      klass.should respond_to(:foo)
+      klass.should respond_to(:foo_without_qmin)
     end
 
-    subject = klass.new
+    it 'decorates class method in eigenclass' do
+      klass = Class.new do
+        def self.foo; end
 
-    subject.should.respond_to? :foo
-    subject.should.respond_to? :foo_without_qmin
-  end
-
-  it 'does not annotate original method' do
-    klass = Class.new do
-      def foo; end
-      background_method :foo
-      background_method :foo_without_qmin
+        class << self
+          background :foo
+        end
+      end
+      klass.should respond_to(:foo)
+      klass.should respond_to(:foo_without_qmin)
     end
-
-    subject = klass.new
-
-    subject.should.respond_to? :foo
-    subject.should.respond_to? :foo_without_qmin
-    subject.should_not.respond_to? :foo_without_qmin_without_qmin
   end
+
 end

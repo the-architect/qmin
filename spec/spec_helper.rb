@@ -86,7 +86,7 @@ class BackgroundTestClass < TestClass
     'BackgroundTestClass'
   end
 
-  background_method :action
+  background :action
 end
 
 class TestJob < Qmin::Resque::BaseJob
