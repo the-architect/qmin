@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['marcel.scherf@epicteams.com']
   spec.description   = %q{Simple framwork to coordinate background tasks}
   spec.summary       = %q{Simple framwork to coordinate background tasks}
-  spec.homepage      = 'https://github.com/the-architect/qmin'
+  spec.homepage      = 'https://github.com/qmin/qmin'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
