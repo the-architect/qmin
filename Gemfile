@@ -5,5 +5,5 @@ gemspec
 
 group :development do
   gem 'debugger'
-  gem 'metric_fu'
+  gem 'metric_fu', :platforms => [:ruby_19, :ruby_20]
 end
