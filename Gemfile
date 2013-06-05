@@ -4,6 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'debugger'
+  gem 'debugger' unless ENV['CI']
   gem 'metric_fu', :platforms => [:ruby_19, :ruby_20]
 end
