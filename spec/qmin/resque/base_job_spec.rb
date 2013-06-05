@@ -9,7 +9,7 @@ describe Qmin::Resque::BaseJob do
 
   it 'demands find method on model class' do
     Qmin::Qmin.new(Qmin::Strategy::Resque)
-    -> {
+    lambda {
       Class.new(Qmin::Resque::BaseJob) do
         model Class
       end
@@ -18,7 +18,7 @@ describe Qmin::Resque::BaseJob do
 
   it 'demands implementation of perform method' do
     instance = Class.new(Qmin::Resque::BaseJob).new(TestClass, :action, 123)
-    -> {
+    lambda {
       instance.perform
     }.should raise_error(Qmin::Resque::BaseJob::ImplementationMissing)
 

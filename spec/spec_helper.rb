@@ -4,7 +4,7 @@ begin
     add_filter '/spec'
   end
 rescue LoadError
-  # 'only available for ruby 1.9+'
+  # only available for ruby 1.9+ in non-CI environments
 end
 
 require 'rspec/autorun'

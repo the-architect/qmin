@@ -12,7 +12,7 @@ describe Qmin do
     it 'raises error if no strategy defined' do
       Qmin::Qmin.default_strategy = nil
 
-      -> {
+      lambda {
         Qmin::Qmin.new
       }.should raise_error(Qmin::MustDefineStrategyError)
     end
@@ -21,7 +21,7 @@ describe Qmin do
       Qmin::Qmin.default_strategy = nil
       Qmin::Qmin.class_variable_set(:@@current, nil)
 
-      -> {
+      lambda {
         Qmin::Qmin.current
       }.should raise_error(Qmin::MustDefineStrategyError)
     end
