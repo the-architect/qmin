@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem 'debugger' unless ENV['CI']
+  gem 'debugger'
   gem 'metric_fu', :platforms => [:ruby_19, :ruby_20]
+  gem 'simplecov', :platforms => [:ruby_19, :ruby_20]
+  gem 'simplecov-html', :platforms => [:ruby_19, :ruby_20]
 end
+

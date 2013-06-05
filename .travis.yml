@@ -1,4 +1,5 @@
 language: ruby
+gemfile: Gemfile.ci
 rvm:
   - ruby-head
   - 2.0.0-p0
