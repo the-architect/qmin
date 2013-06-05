@@ -1,6 +1,10 @@
-require 'simplecov'
-SimpleCov.start do
-  add_filter '/spec'
+begin
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter '/spec'
+  end
+rescue LoadError
+  # 'only available for ruby 1.9+'
 end
 
 require 'rspec/autorun'
