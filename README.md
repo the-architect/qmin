@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/qmin/qmin.png?branch=master)](https://travis-ci.org/qmin/qmin)
+[![Dependency Status](https://gemnasium.com/qmin/qmin.png)](https://gemnasium.com/qmin/qmin)
+[![Code Climate](https://codeclimate.com/github/qmin/qmin.png)](https://codeclimate.com/github/qmin/qmin)
+
 # Qmin
 
 Enables your application to handle method calls in the background without the need to write a worker for every task.
