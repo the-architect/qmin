@@ -12,10 +12,12 @@ unless !!defined?(ActiveSupport::Inflector)
     def constantize
       Kernel.const_get(self)
     end
-
-    def to_queue_name
-      gsub('::','').underscore
-    end
   end
 
+end
+
+class String
+  def to_queue_name
+    gsub('::','').underscore
+  end
 end
