@@ -18,8 +18,9 @@ describe Qmin do
     end
 
     it 'raises error for current if no strategy defined' do
+      # reset strategies
       Qmin::Qmin.default_strategy = nil
-      Qmin::Qmin.class_variable_set(:@@current, nil)
+      Qmin::Qmin.send :class_variable_set, :@@current, nil
 
       lambda {
         Qmin::Qmin.current
