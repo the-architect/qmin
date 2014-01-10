@@ -13,28 +13,19 @@ class String
     names = self.split('::')
     names.shift if names.empty? || names.first.empty?
 
-    names.inject(Object) do |constant, name|
-      if constant == Object
-        constant.const_get(name)
+    constant = Object
+    names.each do |name|
+      args = Module.method(:const_get).arity != 1 ? [false] : []
+
+      if constant.const_defined?(name, *args)
+        constant = constant.const_get(name)
       else
-        candidate = constant.const_get(name)
-        args = Module.method(:const_defined?).arity != 1 ? [false] : []
-        next candidate if constant.const_defined?(name, *args)
-        next candidate unless Object.const_defined?(name)
-
-        # Go down the ancestors to check it it's owned
-        # directly before we reach Object or the end of ancestors.
-        constant = constant.ancestors.inject do |const, ancestor|
-          break const    if ancestor == Object
-          break ancestor if ancestor.const_defined?(name, *args)
-          const
-        end
-
-        # owner is in Object, so raise
-        constant.const_get(name, false)
+        constant = constant.const_missing(name)
       end
     end
+    constant
   end unless String.respond_to?(:constantize)
+
 
   def to_queue_name
     gsub('::','').underscore

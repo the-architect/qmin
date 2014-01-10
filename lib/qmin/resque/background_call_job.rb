@@ -1,7 +1,6 @@
 module Qmin
   module Resque
     class BackgroundCallJob
-
       def self.perform(*args)
         new(*args).perform
       end
