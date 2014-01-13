@@ -46,5 +46,9 @@ module Qmin
     def background_call(instance, method_name)
       @strategy.background_call(instance, method_name)
     end
+
+    def report(exception)
+      @reporter.report(exception)
+    end
   end
 end
