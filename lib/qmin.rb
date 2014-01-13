@@ -5,6 +5,7 @@ require 'qmin/strategy/inline'
 require 'qmin/strategy/noop'
 
 require 'qmin/reporting/inline'
+require 'qmin/reporting/noop'
 
 if defined? Resque
   require 'qmin/resque/background_call_job'
@@ -13,11 +14,6 @@ if defined? Resque
 end
 
 module Qmin
-  class MustDefineStrategyError < StandardError
-    def message
-      'You have to define a Strategy for Qmin. Use Qmin.default_strategy= to set one of (Qmin::Strategy::Resque|Qmin::Strategy::Noop|Qmin::Strategy::Inline)'
-    end
-  end
 
   protected
 

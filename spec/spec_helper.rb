@@ -63,6 +63,8 @@ class WorkerClass
 end
 
 class TestClass
+  class CustomError < StandardError; end
+
   def action
     @id
   end
@@ -79,6 +81,11 @@ class TestClass
     @id = id
   end
   attr_reader :id
+
+  def raise_error
+    raise CustomError.new
+  end
+  background :raise_error
 end
 
 class BackgroundTestClass < TestClass
