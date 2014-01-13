@@ -12,8 +12,12 @@ module Qmin
       end
 
       def perform
-        instance = @klass.find(@id)
-        instance.send(::Qmin.method_name_for_instance(instance, @method_name))
+        begin
+          instance = @klass.find(@id)
+          instance.send(::Qmin.method_name_for_instance(instance, @method_name))
+        rescue => e
+          ::Qmin.current.report(e)
+        end
       end
     end
   end
