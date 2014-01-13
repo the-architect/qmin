@@ -4,7 +4,7 @@ describe Qmin::Resque::BackgroundCallJob do
   let(:id){ 123 }
 
   before do
-    Qmin::Qmin.new(Qmin::Strategy::Resque)
+    Qmin::Qmin.default_strategy = Qmin::Strategy::Resque
   end
 
   it 'calls method on instance' do
@@ -12,15 +12,11 @@ describe Qmin::Resque::BackgroundCallJob do
   end
 
   it 'calls method on instance wrapped in background_call_job' do
-    Qmin::Qmin.new(Qmin::Strategy::Resque)
-
     BackgroundTestClass.new(id).action
     ::Resque.queue['qmin_resque_background_call_job_background_test_class_action'][0].should eql ({:class => Qmin::Resque::BackgroundCallJob, :args => ['BackgroundTestClass', :action, 123]})
   end
 
   it 'delegates perform to instance' do
-    Qmin::Qmin.new(Qmin::Strategy::Resque)
-
     Qmin::Resque::BackgroundCallJob.any_instance.expects(:perform)
     Qmin::Resque::BackgroundCallJob.perform(BackgroundTestClass, 'action', 123)
   end

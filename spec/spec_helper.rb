@@ -45,11 +45,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Resque.reset_queue!
-    Qmin::Qmin.new(Qmin::Strategy::Inline)
-  end
-
-  config.after(:each) do
-    Qmin::Qmin.new(Qmin::Strategy::Inline)
+    Qmin::Qmin.default_strategy = nil
   end
 end
 

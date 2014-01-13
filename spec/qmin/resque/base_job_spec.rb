@@ -2,13 +2,15 @@ require File.expand_path '../../spec_helper', File.dirname(__FILE__)
 
 describe Qmin::Resque::BaseJob do
 
+  before do
+    Qmin::Qmin.default_strategy = Qmin::Strategy::Resque
+  end
+
   it 'performs test job' do
-    Qmin::Qmin.new(Qmin::Strategy::Resque)
     TestJob.perform(10).should eql 10
   end
 
   it 'demands find method on model class' do
-    Qmin::Qmin.new(Qmin::Strategy::Resque)
     lambda {
       Class.new(Qmin::Resque::BaseJob) do
         model Class

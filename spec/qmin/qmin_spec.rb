@@ -8,26 +8,6 @@ describe Qmin do
     defined?(Qmin::Strategy::Resque).should eql('constant')
   end
 
-  describe 'initialize' do
-    it 'raises error if no strategy defined' do
-      Qmin::Qmin.default_strategy = nil
-
-      lambda {
-        Qmin::Qmin.new
-      }.should raise_error(Qmin::MustDefineStrategyError)
-    end
-
-    it 'raises error for current if no strategy defined' do
-      # reset strategies
-      Qmin::Qmin.default_strategy = nil
-      Qmin::Qmin.send :class_variable_set, :@@current, nil
-
-      lambda {
-        Qmin::Qmin.current
-      }.should raise_error(Qmin::MustDefineStrategyError)
-    end
-  end
-
   describe 'background_method' do
     it 'aliases background methods'do
       subject = BackgroundTestClass.new
@@ -51,8 +31,6 @@ describe Qmin do
 
   describe 'enqueue' do
     it 'enqueues job' do
-      Qmin::Qmin.new(Qmin::Strategy::Inline)
-
       TestJob.expects(:perform).with(1,2,3)
       Qmin::Qmin.enqueue TestJob, 1,2,3
     end
