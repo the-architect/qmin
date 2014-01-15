@@ -12,7 +12,7 @@ describe 'Qmin::Reporting::MailBuilder' do
 
   it 'builds mail' do
     mail = Qmin::Reporting::MailBuilder.new(exception, mail_to, mail_from).build
-    
+
     mail.subject.should match(%r/#{message}$/)
     mail.body.should include(backtrace.join("\n"))
     mail.to.should eql [mail_to]
