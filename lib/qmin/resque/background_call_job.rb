@@ -2,13 +2,21 @@ module Qmin
   module Resque
     class BackgroundCallJob
       def self.perform(*args)
-        new(*args).perform
+        begin
+          new(*args).perform
+        rescue => e
+          ::Qmin::Qmin.current.report(e)
+        end
       end
 
       def initialize(klass, method_name, id)
-        @klass = klass.is_a?(Class) ? klass : klass.constantize
-        @method_name = method_name
-        @id = id
+        begin
+          @klass = klass.is_a?(Class) ? klass : klass.constantize
+          @method_name = method_name
+          @id = id
+        rescue => e
+          ::Qmin::Qmin.current.report(e)
+        end
       end
 
       def perform

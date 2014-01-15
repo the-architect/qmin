@@ -16,10 +16,12 @@ describe 'Qmin::Reporting::Mail' do
 
   let(:error_producer){ TestClass.new(123) }
 
-  it 'raises error for inline strategy' do
+  it 'report mail for inline strategy' do
     lambda{
       error_producer.raise_error
-    }.should raise_error(TestClass::CustomError)
+    }.should_not raise_error(TestClass::CustomError)
+
+    Mail::TestMailer.deliveries.should_not be_empty
   end
 
   describe 'resque strategy' do
