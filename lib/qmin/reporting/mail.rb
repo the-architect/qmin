@@ -46,7 +46,7 @@ module Qmin
         if self.class.delivery_method && self.class.delivery_options
           mail.delivery_method(self.class.delivery_method, self.class.delivery_options)
         end
-        
+
         mail.deliver
       end
 
