@@ -1,5 +1,5 @@
-require_relative '../../spec_helper'
-require_relative '../../../lib/qmin'
+require File.expand_path '../../spec_helper', File.dirname(__FILE__)
+require File.expand_path '../../../lib/qmin', File.dirname(__FILE__)
 
 describe 'Qmin::Reporting::Inline' do
   let(:error_producer){ TestClass.new(123) }
