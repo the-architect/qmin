@@ -30,13 +30,13 @@ describe 'Qmin::Reporting::Mail' do
     it 'raises no error with resque strategy when enqueuing the job' do
       lambda{
         error_producer.raise_error
-      }.should_not raise_error(TestClass::CustomError)
+      }.should_not raise_error
     end
 
     it 'raises error when job is performing' do
       lambda{
         Qmin::Resque::BackgroundCallJob.new(TestClass, :raise_error, error_producer.id).perform
-      }.should_not raise_error(TestClass::CustomError)
+      }.should_not raise_error
 
       Mail::TestMailer.deliveries.should_not be_empty
     end

@@ -14,7 +14,7 @@ describe 'Qmin::Reporting::Inline' do
     Qmin::Qmin.default_strategy = Qmin::Strategy::Noop
     lambda{
       error_producer.raise_error
-    }.should_not raise_error(TestClass::CustomError)
+    }.should_not raise_error
   end
 
   describe 'resque strategy' do
@@ -25,7 +25,7 @@ describe 'Qmin::Reporting::Inline' do
     it 'raises no error with resque strategy when enqueueing the job' do
       lambda{
         error_producer.raise_error
-      }.should_not raise_error(TestClass::CustomError)
+      }.should_not raise_error
     end
 
     it 'raises error when job is performing' do
