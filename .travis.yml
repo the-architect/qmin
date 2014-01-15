@@ -2,12 +2,11 @@ language: ruby
 gemfile: Gemfile.ci
 
 before_install:
- - gem update --system 2.2.1
+ - gem update --system 2.1.11
  - gem --version
  - gem install bundler
 
 rvm:
-  - ruby-head
   - 2.1.0
   - 2.0.0
   - 1.9.3
