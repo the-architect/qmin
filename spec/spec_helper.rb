@@ -7,7 +7,12 @@ rescue LoadError
   # only available for ruby 1.9+ in non-CI environments
 end
 
+require 'mail'
 require 'rspec/autorun'
+
+Mail.defaults do
+  delivery_method :test
+end
 
 # mock Resque behavior
 class Resque
@@ -45,7 +50,13 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Resque.reset_queue!
+    Mail::TestMailer.deliveries.clear
     Qmin::Qmin.default_strategy = nil
+    Qmin::Qmin.default_reporter = nil
+  end
+
+  config.after(:each) do
+
   end
 end
 
@@ -63,7 +74,12 @@ class WorkerClass
 end
 
 class TestClass
-  class CustomError < StandardError; end
+  class CustomError < StandardError
+    def initialize(msg = '')
+      super
+    end
+  end
+
 
   def action
     @id
@@ -83,7 +99,7 @@ class TestClass
   attr_reader :id
 
   def raise_error
-    raise CustomError.new
+    raise CustomError.new("Something went wrong with #{@id}")
   end
   background :raise_error
 end

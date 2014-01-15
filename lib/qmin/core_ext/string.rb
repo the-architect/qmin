@@ -8,7 +8,7 @@ class String
       downcase
   end unless String.respond_to?(:underscore)
 
-  # shamelessly stolen from resque
+  # copied from resque
   def constantize
     names = self.split('::')
     names.shift if names.empty? || names.first.empty?

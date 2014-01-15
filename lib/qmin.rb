@@ -13,6 +13,10 @@ if defined? Resque
   require 'qmin/strategy/resque'
 end
 
+if defined? Mail
+  require 'qmin/reporting/mail'
+end
+
 module Qmin
 
   protected

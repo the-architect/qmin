@@ -5,16 +5,17 @@ module Qmin
     class << self
       def default_reporter=(reporter)
         @default_reporter = reporter
+        @current = nil # reset current, so the newly set reporter is used
       end
 
       def default_reporter
-        @default_reporter ||= Reporting::Inline
+        @default_reporter || Reporting::Inline
       end
 
       # configure default strategy
       def default_strategy=(strategy)
         @default_strategy = strategy
-        @current = nil
+        @current = nil  # reset current, so the newly set strategy is used
       end
 
       def default_strategy
