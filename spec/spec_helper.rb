@@ -8,6 +8,7 @@ rescue LoadError
 end
 
 require 'mail'
+require 'honeybadger'
 require 'rspec/autorun'
 
 Mail.defaults do

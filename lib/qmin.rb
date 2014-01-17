@@ -1,21 +1,23 @@
 require 'qmin/qmin'
+
 require 'qmin/core_ext/class'
 require 'qmin/core_ext/string'
+
 require 'qmin/strategy/inline'
 require 'qmin/strategy/noop'
 
 require 'qmin/reporting/inline'
 require 'qmin/reporting/noop'
 
-if defined? Resque
+if defined? ::Resque
   require 'qmin/resque/background_call_job'
   require 'qmin/resque/base_job'
   require 'qmin/strategy/resque'
 end
 
-if defined? Mail
-  require 'qmin/reporting/mail'
-end
+require 'qmin/reporting/mail' if defined? ::Mail
+require 'qmin/reporting/honeybadger' if defined? ::Honeybadger
+
 
 module Qmin
 

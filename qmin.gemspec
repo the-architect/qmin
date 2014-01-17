@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'mocha'
   spec.add_development_dependency 'mail',  '2.5.3'
+  spec.add_development_dependency 'honeybadger'
 end
