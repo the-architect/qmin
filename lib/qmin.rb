@@ -17,6 +17,7 @@ end
 
 require 'qmin/reporting/mail' if defined? ::Mail
 require 'qmin/reporting/honeybadger' if defined? ::Honeybadger
+require 'qmin/reporting/rollbar' if defined? ::Rollbar
 
 
 module Qmin

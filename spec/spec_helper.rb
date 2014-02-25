@@ -9,6 +9,7 @@ end
 
 require 'mail'
 require 'honeybadger'
+require 'rollbar'
 require 'rspec/autorun'
 
 Mail.defaults do
